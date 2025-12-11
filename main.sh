@@ -249,7 +249,7 @@ fi
 
 TIMES="10"
 CHATID="6807547477"
-KEY="7123588087:AAF4QmZq_fbbEUMqztAO-FlczjbOGQhfQQ0"
+KEY="7052161849:AAGq0ZlI8pGg_7ytHBMz36JASucDr_9w-sM"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
 
 # // install paket
