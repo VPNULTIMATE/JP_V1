@@ -248,10 +248,9 @@ fi
 }
 
 TIMES="10"
-CHATID="6807547477"
+CHATID="6847302328"
 KEY="7052161849:AAGq0ZlI8pGg_7ytHBMz36JASucDr_9w-sM"
 URL="https://api.telegram.org/bot$KEY/sendMessage"
-
 # // install paket
 function base_package() {
 clear
