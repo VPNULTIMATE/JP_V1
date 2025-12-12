@@ -1,0 +1,183 @@
+#!/bin/bash
+# ==========================================
+# Color Type 9
+CY="\e[96;1m" # Cyan
+CyanBee="\e[5;36m" # BlueCyan
+GreenBe="\e[5;32m" # Green / hijau
+WhiteBe="\e[5;37m" # White / Putih
+Green="\e[92;1m"
+# Color type 38
+LO='\e[38;5;162m'
+UK='\e[38;5;99m'  # UNGU KOLOT
+BK='\e[38;5;196m' # BEREM KOLOT 
+R1='\e[38;5;155m' # HEJO SEMU BODAS
+R2='\e[38;5;49m'  # HEJO LIME / APEL
+BC='\e[38;5;195m' # BODAS CERAH PISAN
+HU='\e[38;5;115m' # HEJO SEMU ABU
+UB='\e[38;5;147m' # UNGU KABODASAN
+KT='\e[38;5;187m' # KONENG TARIGU
+Suffix='\e[0m'
+
+# . Liner L1
+function L1() {
+  echo -e "${UK}┌──────────────────────────────────────────┐ ${Suffix} "
+}
+
+
+# . Liner L2
+function L2() {
+  echo -e "${UK}└──────────────────────────────────────────┘ ${Suffix}"
+}
+  
+  # // Raikazu Backend Banner
+function Raikazu_Banner() {
+clear
+L1
+echo -e "${CyanBee}               RAIKAZU STORE                   ${Suffix}"
+L2
+}
+
+  # // Thanks To RAIKAZU Tunneling
+function Sc_Credit(){
+sleep 2
+L1
+echo -e "${CyanBee}       Terimakasih Telah Menggunakan-      ${Suffix}"
+echo -e "${CyanBee}                Script Credit              ${Suffix}"
+echo -e "${CyanBee}                RAIKAZU STORE                   ${Suffix}"
+L2
+read -p "[Enter] Back Menu "
+menu
+}
+
+function ENVIRONMENT() {
+L1
+ echo -e "${R2}           ---[ DATA RESTORE ]---             ${Suffix}"
+L2
+}
+
+# // Submit Loading : sleep 3 & loading $!
+function loading() {
+clear
+echo
+echo
+echo
+  local pid=$1
+  local delay=0.1
+  local spin='-\|/'
+
+  while ps -p $pid > /dev/null; do
+    local temp=${spin#?}
+    printf "[%c] " "$spin"
+    local spin=$temp${spin%"$temp"}
+    sleep $delay
+    printf "\b\b\b\b\b\b"
+  done
+
+  printf "    \b\b\b\b"
+}
+
+function Format_Just_Input() {
+RAIKAZU_Banner
+L1
+echo ""
+echo -e "${GreenBe} Just Input a number ${Suffix}"
+echo -e "${WhiteBe} Format Number in day${Suffix}"
+echo -e ""
+echo -e "${CyanBee} 1 = 1 day ${Suffix}"
+echo -e "${CyanBee} 2 = 2 day ${Suffix}"
+echo ""
+L2
+echo ""
+}
+
+
+# Color
+RED='\033[0;31m'
+NC='\033[0m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+LIGHT='\033[0;37m'
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+clear
+function notif_restore() {
+    green "Notif AddHost Tele"
+    sleep 2
+    CHATID="$CHATID"
+KEY="$KEY"
+TIME="$TIME"
+URL="$URL"
+TEXT="
+<code>◇━━━━━━━━━━━━━━◇</code>
+<b>  ⚠️ RESTORE NOTIF⚠️</b>
+<b>     Detail Restore VPS</b>
+<code>◇━━━━━━━━━━━━━━◇</code>
+<code>Done Gak Bang DONE</code>
+<code>◇━━━━━━━━━━━━━━◇</code>
+"
+
+curl -s --max-time $TIME -d "chat_id=$CHATID&disable_web_page_preview=1&text=$TEXT&parse_mode=html" $URL >/dev/null
+}
+# ==========================================
+# Getting
+
+
+Raikazu_Banner
+L1
+ENVIRONMENT
+L2
+echo -e ""
+read -rp " input Link Backup:  " -e url
+wget -O backup.zip "$url"
+unzip backup.zip
+rm -f backup.zip
+sleep 1
+echo Start Restore
+cd /root/backup
+cp passwd /etc/
+cp group /etc/
+cp shadow /etc/
+cp gshadow /etc/
+cp -r kyt /var/lib/
+cp -r xray /etc/
+cp -r html /var/www/
+cp crontab /etc/
+cp .ssh.db /etc/ssh/
+cp .vmess.db /etc/vmess/
+cp .vless.db /etc/vless/
+cp .trojan.db /etc/trojan/
+cp .shadowsocks.db /etc/shadowsocks/
+cp -r limit /etc/kyt/
+cp -r vmess /etc/
+cp -r trojan /etc/
+cp -r vless /etc/
+notif_restore
+rm -rf /root/backup
+rm -f backup.zip
+
+# // Frint Load
+echo ""
+sleep 3 & loading $!
+
+
+# // Frint Success
+Lunatic_Banner
+L1
+echo -e "${GreenBe} Succesfully ${Suffix} "
+echo
+echo -e "${BC} Your Data Vps Succes In- ${Suffix} "
+echo -e "${BC} Restoring. ${Suffix}"
+echo
+echo -e "${R2} SSH OPENVPN  : Succes Restoring ${Suffix}"
+echo -e "${R2} XRAY VMESS   : Succes Restoring ${Suffix}"
+echo -e "${R2} XRAY VLESS   : Succes Restoring ${Suffix}"
+echo -e "${R2} XRAY TROJAN  : Succes Restoring ${Suffix}"
+echo -e "${R2} SODOSOK  : Succes Restoring ${Suffix}"
+echo
+L2
+Sc_Credit

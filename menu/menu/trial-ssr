@@ -1,0 +1,455 @@
+#!/bin/bash
+# Color Type 9
+CY="\e[96;1m" # Cyan
+CyanBee="\e[5;36m" # BlueCyan
+GreenBe="\e[5;32m" # Green / hijau
+WhiteBe="\e[5;37m" # White / Putih
+Green="\e[92;1m"
+GREEN="\e[92;1m"
+RED="\e[91;1m"
+# Color type 38
+LO='\e[38;5;162m'
+UK='\e[38;5;99m'  # UNGU KOLOT
+BK='\e[38;5;196m' # BEREM KOLOT 
+R1='\e[38;5;155m' # HEJO SEMU BODAS
+R2='\e[38;5;49m'  # HEJO LIME / APEL
+BC='\e[38;5;195m' # BODAS CERAH PISAN
+HU='\e[38;5;115m' # HEJO SEMU ABU
+UB='\e[38;5;147m' # UNGU KABODASAN
+KT='\e[38;5;187m' # KONENG TARIGU
+Suffix='\e[0m'
+
+# . Liner L1
+function L1() {
+  echo -e "${UK}┌──────────────────────────────────────────┐ ${Suffix} "
+}
+
+
+# . Liner L2
+function L2() {
+  echo -e "${UK}└──────────────────────────────────────────┘ ${Suffix}"
+}
+
+
+# . Liner Horizontal
+function Horizontal(){
+  echo -e "${UK}———————————————————————————————————————————      ${Suffix}"
+}
+
+  
+  # // Lunatic Backend Banner
+function Lunatic_Banner() {
+clear
+L1
+echo -e "${CyanBee}              RAIKAZU STORE                   ${Suffix}"
+L2
+}
+
+  # // Thanks To Lunatic Tunneling
+function Sc_Credit(){
+sleep 2
+L1
+echo -e "${CyanBee}       Terimakasih Telah Menggunakan-      ${Suffix}"
+echo -e "${CyanBee}                Script Credit              ${Suffix}"
+echo -e "${CyanBee}                RAIKAZU STORE                   ${Suffix}"
+L2
+read -p "[Enter] Back Menu "
+menu
+}
+
+function ENVIRONMENT() {
+L1
+ echo -e "${R2}           ---[ INPUT MINUTES ]---             ${Suffix}"
+L2
+}
+
+# // Submit Loading : sleep 3 & loading $!
+function loading() {
+clear
+echo
+echo
+echo
+  local pid=$1
+  local delay=0.1
+  local spin='-\|/'
+
+  while ps -p $pid > /dev/null; do
+    local temp=${spin#?}
+    printf "[%c] " "$spin"
+    local spin=$temp${spin%"$temp"}
+    sleep $delay
+    printf "\b\b\b\b\b\b"
+  done
+
+  printf "    \b\b\b\b"
+}
+
+function Format_Just_Input() {
+Lunatic_Banner
+L1
+echo ""
+echo -e "${GreenBe} Just Input a number ${Suffix}"
+echo -e "${WhiteBe} Format Number in day${Suffix}"
+echo -e ""
+echo -e "${CyanBee} 1 = 1 day ${Suffix}"
+echo -e "${CyanBee} 2 = 2 day ${Suffix}"
+echo ""
+L2
+echo ""
+}
+
+
+
+
+ISP=$(cat /etc/xray/isp)
+CITY=$(cat /etc/xray/city)
+red() { echo -e "\\033[32;1m${*}\\033[0m"; }
+clear
+
+
+# Getting bot
+CHATID=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 3)
+KEY=$(grep -E "^#bot# " "/etc/bot/.bot.db" | cut -d ' ' -f 2)
+export TIME="10"
+export URL="https://api.telegram.org/bot$KEY/sendMessage"
+clea
+r
+#IZIN SCRIPT
+MYIP=$(curl -sS ipv4.icanhazip.com)
+clear
+
+
+clear
+sspwd=$(cat /etc/xray/passwd)
+clear
+source /var/lib/kyt/ipvps.conf
+if [[ "$IP" = "" ]]; then
+domain=$(cat /etc/xray/domain)
+else
+domain=$IP
+fi
+clear
+
+# // Frint Trial
+masaaktif=1
+Quota=5
+user=Tri4L`</dev/urandom tr -dc 0-9 | head -c3`
+
+# // Frint Load
+sleep 2 & loading $!
+
+
+cipher="aes-128-gcm"
+uuid=$(cat /proc/sys/kernel/random/uuid)
+tgl=$(date -d "$masaaktif days" +"%d")
+bln=$(date -d "$masaaktif days" +"%b")
+thn=$(date -d "$masaaktif days" +"%Y")
+expe="$tgl $bln, $thn"
+tgl2=$(date +"%d")
+bln2=$(date +"%b")
+thn2=$(date +"%Y")
+tnggl="$tgl2 $bln2, $thn2"
+exp=$(date -d "$masaaktif days" +"%Y-%m-%d")
+sed -i '/#ssws$/a\#!# '"$user $exp"'\
+},{"password": "'""$uuid""'","method": "'""$cipher""'","email": "'""$user""'"' /etc/xray/config.json
+sed -i '/#ssgrpc$/a\#!# '"$user $exp"'\
+},{"password": "'""$uuid""'","method": "'""$cipher""'","email": "'""$user""'"' /etc/xray/config.json
+echo $cipher:$uuid > /tmp/log
+shadowsocks_base64=$(cat /tmp/log)
+echo -n "${shadowsocks_base64}" | base64 > /tmp/log1
+shadowsocks_base64e=$(cat /tmp/log1)
+shadowsockslink="ss://${shadowsocks_base64e}@$domain:$tls?plugin=xray-plugin;mux=0;path=/ss-ws;host=$domain;tls#${user}"
+shadowsockslink1="ss://${shadowsocks_base64e}@$domain:$tls?plugin=xray-plugin;mux=0;serviceName=ss-grpc;host=$domain;tls#${user}"
+
+# // Get Link Shadowsocks
+#buat ss WEBSOCKET
+sslinkws="ss://${shadowsocks_base64e}@${domain}:443?path=/ss-ws&security=tls&encryption=none&type=ws#${user}"
+nonsslinkws="ss://${shadowsocks_base64e}@${domain}:80?path=/ss-ws&security=none&encryption=none&type=ws#${user}"
+
+#buat ss GRPC
+sslinkgrpc="ss://${shadowsocks_base64e}@${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=ss-grpc&sni=bug.com#${user}"
+nonsslinkgrpc="ss://${shadowsocks_base64e}@${domain}:80?mode=gun&security=none&encryption=none&type=grpc&serviceName=ss-grpc&sni=bug.com#${user}"
+
+systemctl restart xray
+#buatshadowsocks custom
+rm -rf /tmp/log
+rm -rf /tmp/log1
+cat > /var/www/html/sodosokws-$user.txt <<-END
+{ 
+ "dns": {
+    "servers": [
+      "8.8.8.8",
+      "8.8.4.4"
+    ]
+  },
+ "inbounds": [
+   {
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 8
+      },
+      "sniffing": {
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "enabled": true
+      },
+      "tag": "socks"
+    },
+    {
+      "port": 10809,
+      "protocol": "http",
+      "settings": {
+        "userLevel": 8
+      },
+      "tag": "http"
+    }
+  ],
+  "log": {
+    "loglevel": "none"
+  },
+  "outbounds": [
+    {
+      "mux": {
+        "enabled": true
+      },
+      "protocol": "shadowsocks",
+      "settings": {
+        "servers": [
+          {
+            "address": "$domain",
+            "level": 8,
+            "method": "$cipher",
+            "password": "$uuid",
+            "port": 443
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "isi_bug_disini"
+        },
+        "wsSettings": {
+          "headers": {
+            "Host": "$domain"
+          },
+          "path": "/ss-ws"
+        }
+      },
+      "tag": "proxy"
+    },
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      },
+      "tag": "block"
+    }
+  ],
+  "policy": {
+    "levels": {
+      "8": {
+        "connIdle": 300,
+        "downlinkOnly": 1,
+        "handshake": 4,
+        "uplinkOnly": 1
+      }
+    },
+    "system": {
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
+    }
+  },
+  "routing": {
+    "domainStrategy": "Asls",
+"rules": []
+  },
+  "stats": {}
+}
+END
+cat > /var/www/html/sodosokgrpc-$user.txt <<-END
+{
+    "dns": {
+    "servers": [
+      "8.8.8.8",
+      "8.8.4.4"
+    ]
+  },
+ "inbounds": [
+   {
+      "port": 10808,
+      "protocol": "socks",
+      "settings": {
+        "auth": "noauth",
+        "udp": true,
+        "userLevel": 8
+      },
+      "sniffing": {
+        "destOverride": [
+          "http",
+          "tls"
+        ],
+        "enabled": true
+      },
+      "tag": "socks"
+    },
+    {
+      "port": 10809,
+      "protocol": "http",
+      "settings": {
+        "userLevel": 8
+      },
+      "tag": "http"
+    }
+  ],
+  "log": {
+    "loglevel": "none"
+  },
+  "outbounds": [
+    {
+      "mux": {
+        "enabled": true
+      },
+      "protocol": "shadowsocks",
+      "settings": {
+        "servers": [
+          {
+            "address": "$domain",
+            "level": 8,
+            "method": "$cipher",
+            "password": "$uuid",
+            "port": 443
+          }
+        ]
+      },
+      "streamSettings": {
+        "grpcSettings": {
+          "multiMode": true,
+          "serviceName": "ss-grpc"
+        },
+        "network": "grpc",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "isi_bug_disini"
+        }
+      },
+      "tag": "proxy"
+    },
+    {
+      "protocol": "freedom",
+      "settings": {},
+      "tag": "direct"
+    },
+    {
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      },
+      "tag": "block"
+    }
+  ],
+  "policy": {
+    "levels": {
+      "8": {
+        "connIdle": 300,
+        "downlinkOnly": 1,
+        "handshake": 4,
+        "uplinkOnly": 1
+      }
+    },
+    "system": {
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
+    }
+  },
+  "routing": {
+    "domainStrategy": "Asls",
+"rules": []
+  },
+  "stats": {}
+}
+END
+systemctl reload xray >/dev/null 2>&1
+service cron restart >/dev/null 2>&1
+if [ ! -e /etc/shadowsocks ]; then
+  mkdir -p /etc/shadowsocks
+fi
+
+if [ -z ${Quota} ]; then
+  Quota="0"
+fi
+
+c=$(echo "${Quota}" | sed 's/[^0-9]*//g')
+d=$((${c} * 1024 * 1024 * 1024))
+
+if [[ ${c} != "0" ]]; then
+  echo "${d}" >/etc/shadowsocks/${user}
+fi
+DATADB=$(cat /etc/shadowsocks/.shadowsocks.db | grep "^###" | grep -w "${user}" | awk '{print $2}')
+if [[ "${DATADB}" != '' ]]; then
+  sed -i "/\b${user}\b/d" /etc/shadowsocks/.shadowsocks.db
+fi
+echo "### ${user} ${exp} ${uuid}" >>/etc/shadowsocks/.shadowsocks.db
+
+
+
+
+# . Detail Account
+function Details_Account(){
+clear
+Horizontal
+echo -e "\e[97;1m SHADOWSOCKS \e[0m"
+echo -e ""
+echo -e " Remarks     : ${user}"
+echo -e " Domain      : ${domain}"
+echo -e " Quota       : ${Quota} GB"
+echo -e " Location    : $CITY"
+echo -e " ISP         : $ISP"
+echo -e " Port TLS    : 400-900"
+echo -e " Key id      : ${uuid}"
+echo -e " Cipers      : aes-128-gcm"
+echo -e " Network     : ws/grpc"
+echo -e " Path        : /ss-ws"
+echo -e " ServiceName : ss-grpc"
+}
+
+
+# . Detail Link
+function Link_Json(){
+Horizontal
+echo -e " Link WS TLS  : ${sslinkws}"
+Horizontal
+echo -e " Link WS      : ${nonsslinkws}"
+Horizontal
+echo -e " Link GRPC    : ${sslinkgrpc}"
+Horizontal
+echo -e " Account      : https://$domain:81/sodosokws-$user.txt"
+Horizontal
+}
+
+# . Detail Expiry
+function Details_Expiry() {
+echo -e "${R2}  Expiry in    : $masaaktif Day ${Xark}"
+}
+
+Details_Account
+Link_Json
+Details_Expiry
+Sc_Credit

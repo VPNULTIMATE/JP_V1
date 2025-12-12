@@ -1,0 +1,251 @@
+#!/bin/bash
+clear
+
+# Color Type 9
+CY="\e[96;1m" # Cyan
+CyanBee="\e[5;36m" # BlueCyan
+GreenBe="\e[5;32m" # Green / hijau
+WhiteBe="\e[5;37m" # White / Putih
+Green="\e[92;1m"
+GREEN="\e[92;1m"
+RED="\e[91;1m"
+# Color type 38
+LO='\e[38;5;162m'
+UK='\e[38;5;99m'  # UNGU KOLOT
+BK='\e[38;5;196m' # BEREM KOLOT 
+R1='\e[38;5;155m' # HEJO SEMU BODAS
+R2='\e[38;5;49m'  # HEJO LIME / APEL
+BC='\e[38;5;195m' # BODAS CERAH PISAN
+HU='\e[38;5;115m' # HEJO SEMU ABU
+UB='\e[38;5;147m' # UNGU KABODASAN
+KT='\e[38;5;187m' # KONENG TARIGU
+Suffix='\e[0m'
+
+# . Liner L1
+function L1() {
+  echo -e "${UK}┌──────────────────────────────────────────┐ ${Suffix} "
+}
+
+
+# . Liner L2
+function L2() {
+  echo -e "${UK}└──────────────────────────────────────────┘ ${Suffix}"
+}
+
+
+# . Liner Horizontal
+function Horizontal(){
+  echo -e "${UK}———————————————————————————————————————————      ${Suffix}"
+}
+
+
+  
+  # // Raikazu Backend Banner
+function Raikazu_Banner() {
+clear
+L1
+echo -e "${CyanBee}              RAIKAZU STORE                 ${Suffix}"
+L2
+}
+
+
+
+  # // Thanks To Raikazu Tunneling
+function Sc_Credit(){
+sleep 2
+L1
+echo -e "${CyanBee}       Terimakasih Telah Menggunakan-      ${Suffix}"
+echo -e "${CyanBee}                Script Credit              ${Suffix}"
+echo -e "${CyanBee}                RAIKAZU STORE              ${Suffix}"
+L2
+read -p "[Enter] Back Menu "
+menu
+}
+
+
+
+function ENVIRONMENT() {
+L1
+ echo -e "${R2}           ---[ CHANGE LIMIT ]---             ${Suffix}"
+L2
+}
+
+
+
+# // Submit Loading : sleep 3 & loading $!
+function loading() {
+clear
+echo
+echo
+echo
+  local pid=$1
+  local delay=0.1
+  local spin='-\|/'
+
+  while ps -p $pid > /dev/null; do
+    local temp=${spin#?}
+    printf "[%c] " "$spin"
+    local spin=$temp${spin%"$temp"}
+    sleep $delay
+    printf "\b\b\b\b\b\b"
+  done
+
+  printf "    \b\b\b\b"
+}
+
+
+
+
+
+# ==========================================
+# Color
+RED='\033[0;31m'
+NC='\033[0m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+LIGHT='\033[0;37m'
+DF='\e[39m'
+Bold='\e[1m'
+Blink='\e[5m'
+yell='\e[33m'
+red='\e[31m'
+green='\e[32m'
+blue='\e[34m'
+PURPLE='\e[35m'
+cyan='\e[36m'
+Lred='\e[91m'
+Lgreen='\e[92m'
+Lyellow='\e[93m'
+NC='\e[0m'
+GREEN='\033[0;32m'
+ORANGE='\033[0;33m'
+LIGHT='\033[0;37m'
+grenbo="\e[92;1m"
+# ==========================================
+clear
+Green_font_prefix="\033[32m" && Red_font_prefix="\033[31m" && Green_background_prefix="\033[42;37m" && Red_background_prefix="\033[41;37m" && Font_color_suffix="\033[0m"
+Info="${Green_font_prefix}[ON]${Font_color_suffix}"
+Error="${Red_font_prefix}[OFF]${Font_color_suffix}"
+cek=$(grep -c -E "^# Autokill" /etc/cron.d/limitssh-ip)
+if [[ "$cek" = "1" ]]; then
+sts="${Info}"
+else
+sts="${Error}"
+fi
+
+Lunatic_Banner
+L1
+echo -e "            Status Autokill $sts           "
+L2
+L1
+echo -e "       1. AutoKill ip in 1 Minutes"
+echo -e "       2. AutoKill ip in 2 Minutes"
+echo -e "       3. AutoKill ip in 3 Minutes"
+echo -e "       4. Turn Off AutoKill/MultiLogin"
+echo -e "       x. Exit"
+L2
+echo
+read -p "Select From Options [1-4 or x] :  " AutoKill
+echo -e ""
+
+case $AutoKill in
+                1)
+                clear
+               ENVIRONMENT
+                L1
+                echo -e "\e[97;1m Just input a number type ${Suffix}"
+                echo -e "\e[5;32m Format Number ( 1-9 )${Suffix}"
+                echo -e "\e[91;1m invallid Text ( a-z )${Suffix}"
+                L2
+ echo
+                read -p " Input Limit To Shutdown: " iplimit
+                sleep 3 & loading $!
+                echo > /etc/cron.d/limitssh-ip
+                echo "# Autokill" >>/etc/cron.d/limitssh-ip
+                echo "*/1 * * * *  root /usr/local/sbin/tendang $max" >>/etc/cron.d/limitssh-ip
+                echo -e ""
+                clear
+                L1
+                echo -e ""
+                echo -e "${GreenBe} Successfully ${Suffix}"
+                echo -e ""
+                echo -e "${R2} AutoShutdown       : SSH OPENVPN ${Suffix}"
+                echo -e "${R2} Allowed MultiLogin : $iplimit    ${Suffix}"
+                echo -e "${R2} AutoKill Every     : 1 Minutes   ${Suffix}"      
+                echo -e ""
+                L2                         
+                Sc_Credit                             
+                ;;
+                2)
+                 clear
+               ENVIRONMENT
+                L1
+                echo -e "\e[97;1m Just input a number type ${Suffix}"
+                echo -e "\e[5;32m Format Number ( 1-9 )${Suffix}"
+                echo -e "\e[91;1m invallid Text ( a-z )${Suffix}"
+                L2
+ echo
+                read -p " Input Limit To Shutdown: " iplimit
+                sleep 3 & loading $!
+                echo > /etc/cron.d/limitssh-ip
+                echo "# Autokill" >>/etc/cron.d/limitssh-ip
+                echo "*/2 * * * *  root /usr/local/sbin/tendang $iplimit" >>/etc/cron.d/limitssh-ip
+                clear
+                L1
+                echo -e ""
+                echo -e "${GreenBe} Successfully ${Suffix}"
+                echo -e ""
+                echo -e "${R2} AutoShutdown       : SSH OPENVPN ${Suffix}"
+                echo -e "${R2} Allowed MultiLogin : $iplimit    ${Suffix}"
+                echo -e "${R2} AutoKill Every     : 2 Minutes   ${Suffix}"      
+                echo -e ""
+                L2                         
+                Sc_Credit
+                ;;
+                3)
+                clear
+               ENVIRONMENT
+                L1
+                echo -e "\e[97;1m Just input a number type ${Suffix}"
+                echo -e "\e[5;32m Format Number ( 1-9 )${Suffix}"
+                echo -e "\e[91;1m invallid Text ( a-z )${Suffix}"
+                L2
+ echo
+                read -p " Input Limit To Shutdown: " iplimit
+                sleep 3 & loading $!
+                echo > /etc/cron.d/limitssh-ip
+                echo "# Autokill" >>/etc/cron.d/limitssh-ip
+                echo "*/3 * * * *  root /usr/local/sbin/tendang $iplimit" >>/etc/cron.d/limitssh-ip
+                clear
+                L1
+                echo -e ""
+                echo -e "${GreenBe} Successfully ${Suffix}"
+                echo -e ""
+                echo -e "${R2} AutoShutdown       : SSH OPENVPN ${Suffix}"
+                echo -e "${R2} Allowed MultiLogin : $iplimit    ${Suffix}"
+                echo -e "${R2} AutoKill Every     : 3 Minutes   ${Suffix}"      
+                echo -e ""
+                L2                         
+                Sc_Credit
+                ;;
+                4)
+                sleep 2 & loading $!
+                echo > /etc/cron.d/limitssh-ip
+                echo -e ""
+                Lunatic_Banner
+                L1
+                echo -e ""
+                echo -e "        AutoKill MultiLogin Turned Off  "
+                echo -e ""
+                L2
+                Sc_Credit
+                ;;
+                *)
+                clear
+                exit
+                ;;
+        esac
+        

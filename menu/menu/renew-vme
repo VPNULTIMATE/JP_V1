@@ -1,0 +1,171 @@
+#!/bin/bash
+# Color Type 9
+CY="\e[96;1m" # Cyan
+CyanBee="\e[5;36m" # BlueCyan
+GreenBe="\e[5;32m" # Green / hijau
+WhiteBe="\e[5;37m" # White / Putih
+# Color type 38
+LO='\e[38;5;162m'
+UK='\e[38;5;99m'  # UNGU KOLOT
+BK='\e[38;5;196m' # BEREM KOLOT 
+R1='\e[38;5;155m' # HEJO SEMU BODAS
+R2='\e[38;5;49m'  # HEJO LIME / APEL
+BC='\e[38;5;195m' # BODAS CERAH PISAN
+HU='\e[38;5;115m' # HEJO SEMU ABU
+UB='\e[38;5;147m' # UNGU KABODASAN
+KT='\e[38;5;187m' # KONENG TARIGU
+Suffix='\e[0m'
+
+# . Liner L1
+function L1() {
+  echo -e "${UK}┌──────────────────────────────────────────┐ ${Suffix} "
+}
+
+
+# . Liner L2
+function L2() {
+  echo -e "${UK}└──────────────────────────────────────────┘ ${Suffix}"
+}
+  
+  # // RAIKAZU Backend Banner
+function Raikazu_Banner() {
+clear
+L1
+echo -e "${CyanBee}              RAIKAZU STORE                   ${Suffix}"
+L2
+}
+
+  # // Thanks To Raikazu Tunneling
+function Sc_Credit(){
+sleep 2
+L1
+echo -e "${CyanBee}       Terimakasih Telah Menggunakan-      ${Suffix}"
+echo -e "${CyanBee}                Script Credit              ${Suffix}"
+echo -e "${CyanBee}                RAIKAZU STORE                   ${Suffix}"
+L2
+read -p "[Enter] Back Menu "
+menu
+}
+
+function Renew_Member() {
+L1
+ echo -e "${R2}           ---[ RENEW MEMBER ]---             ${Suffix}"
+L2
+}
+
+# // Submit Loading : sleep 3 & loading $!
+function loading() {
+clear
+echo
+echo
+echo
+  local pid=$1
+  local delay=0.1
+  local spin='-\|/'
+
+  while ps -p $pid > /dev/null; do
+    local temp=${spin#?}
+    printf "[%c] " "$spin"
+    local spin=$temp${spin%"$temp"}
+    sleep $delay
+    printf "\b\b\b\b\b\b"
+  done
+
+  printf "    \b\b\b\b"
+}
+
+function Format_Just_Input() {
+Lunatic_Banner
+L1
+echo ""
+echo -e "${GreenBe} Just Input a number ${Suffix}"
+echo -e "${WhiteBe} Format Number in day${Suffix}"
+echo -e ""
+echo -e "${CyanBee} 1 = 1 day ${Suffix}"
+echo -e "${CyanBee} 2 = 2 day ${Suffix}"
+echo ""
+L2
+echo ""
+}
+
+
+
+NUMBER_OF_CLIENTS=$(grep -c -E "^### " "/etc/xray/config.json")
+	if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
+
+Raikazu_Banner
+L1
+		echo ""
+		echo -e "${BK} Invallid ${Suffix} "
+		echo -e ""
+		echo " Maaf Nama tidak ada "
+		echo " Atau Anda salah Memasuk-"
+		echo " kan Nama "
+		echo ""
+L2
+Sc_Credit
+	fi
+
+	clear
+L1
+Renew_Member
+    echo ""
+  	grep -E "^### " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | column -t | sort | uniq
+    echo ""
+L2
+
+echo ""
+	read -p " Input Username   : " user
+    if [ -z $user ]; then
+baris_panjang
+    menu
+    else
+
+Format_Just_Input
+  echo -e "${CY} Username         : $user ${Suffix}" 
+  read -p " Expired (day)    : " masaaktif
+
+sleep 3 & loading $!
+
+    exp=$(grep -wE "^### $user" "/etc/xray/config.json" | cut -d ' ' -f 3 | sort | uniq)
+    mkdir -p /etc/kyt/limit/vmess/ip
+echo ${iplim} >> /etc/kyt/limit/vmess/ip/${user}
+if [ ! -e /etc/vmess/ ]; then
+  mkdir -p /etc/vmess/
+fi
+
+if [ -z ${Quota} ]; then
+  Quota="0"
+fi
+
+c=$(echo "${Quota}" | sed 's/[^0-9]*//g')
+d=$((${c} * 1024 * 1024 * 1024))
+
+if [[ ${c} != "0" ]]; then
+  echo "${d}" >/etc/vmess/${user}
+fi
+    now=$(date +%Y-%m-%d)
+    d1=$(date -d "$exp" +%s)
+    d2=$(date -d "$now" +%s)
+    exp2=$(( (d1 - d2) / 86400 ))
+    exp3=$(($exp2 + $masaaktif))
+    exp4=`date -d "$exp3 days" +"%Y-%m-%d"`
+    sed -i "/### $user/c\### $user $exp4" /etc/xray/config.json
+    sed -i "/### $user/c\### $user $exp4" /etc/vmess/.vmess.db
+    systemctl restart xray > /dev/null 2>&1
+    clear
+
+function Succesfully_Renew() {
+Raikazu_Banner
+L1
+    echo -e "${GreenBe} Succesfully ${Suffix} "
+    echo
+    echo "${R2} Client Name    : $user     ${Suffix}"
+    echo "${R2} Expired On     : $exp4 day ${Suffix}"
+    echo
+L2
+Sc_Credit
+}
+
+Succesfully_Renew
+    fi

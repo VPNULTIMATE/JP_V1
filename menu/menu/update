@@ -1,0 +1,95 @@
+#!/bin/bash
+cd /usr/local/
+rm -rf sbin
+rm -rf /usr/bin/enc
+cd
+mkdir /usr/local/sbin
+dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Date | sed -e 's/< Date: //')
+biji=`date +"%Y-%m-%d" -d "$dateFromServer"`
+red() { echo -e "\\033[32;1m${*}\\033[0m"; }
+
+clear
+
+green='\033[0;32m'
+r="\e[91;1m"
+RED="\e[91;1m"
+Blu_Cy="\e[5;36m"
+# // color format 38
+runn='\e[38;5;14m' 
+acc='\e[38;5;146m'
+LO='\e[38;5;162m'
+UK='\e[38;5;99m'  # UNGU KOLOT
+BK='\e[38;5;196m' # BEREM KOLOT 
+R1='\e[38;5;155m' # HEJO SEMU BODAS
+R2='\e[38;5;49m'  # HEJO LIME / APEL
+BC='\e[38;5;195m' # BODAS CERAH PISAN
+HU='\e[38;5;115m' # HEJO SEMU ABU
+UB='\e[38;5;147m' # UNGU KABODASAN
+KT='\e[38;5;187m' # KONENG TARIGU
+Suffix='\e[0m'
+
+loading() {
+  local pid=$1
+  local delay=0.1
+  local spin='-\|/'
+
+  while ps -p $pid > /dev/null; do
+    local temp=${spin#?}
+    printf "[%c] " "$spin"
+    local spin=$temp${spin%"$temp"}
+    sleep $delay
+    printf "\b\b\b\b\b\b"
+  done
+
+  printf "    \b\b\b\b"
+}
+
+fun_bar() {
+    CMD[0]="$1"
+    CMD[1]="$2"
+    (
+        [[ -e $HOME/fim ]] && rm $HOME/fim
+        ${CMD[0]} -y >/dev/null 2>&1
+        ${CMD[1]} -y >/dev/null 2>&1
+        touch $HOME/fim
+    ) >/dev/null 2>&1 &
+    tput civis
+    echo -ne "  \033[0;33mPlease Wait Loading \033[1;37m- \033[0;33m["
+    while true; do
+        for ((i = 0; i < 18; i++)); do
+            echo -ne "\033[0;32m="
+            sleep 0.1s
+        done
+        [[ -e $HOME/fim ]] && rm $HOME/fim && break
+        echo -e "\033[0;33m]"
+        sleep 1s
+        tput cuu1
+        tput dl1
+        echo -ne "  \033[0;33mPlease Wait Loading \033[1;37m- \033[0;33m["
+    done
+    echo -e "\033[0;33m]\033[1;37m -\033[1;32m OK !\033[1;37m"
+    tput cnorm
+}
+
+res1() {
+    wget https://raw.githubusercontent.com/RaikazuWebId/xvpn/main/menu.zip
+    unzip menu.zip
+    chmod +x menu/*
+    mv menu/* /usr/local/sbin
+    rm -rf menu
+    rm -rf menu.zip
+    rm -rf update.sh
+}
+netfilter-persistent
+clear
+sleep 0.6 & loading $!
+echo -e " \e[38;5;99m───────────────────────────────────────\033[0m"
+echo -e "      \e[38;5;195m .::::. RAIKAZU STORE .::::. \e[38;5;195m       "
+echo -e " \e[38;5;99m───────────────────────────────────────\033[0m"
+echo -e ""
+echo -e "  \e[38;5;195m system update process \033[0m"
+fun_bar 'res1'
+echo -e " \e[38;5;99m───────────────────────────────────────\033[0m"
+echo -e ""
+read -p " [ENTER] TO BACK MENU ALL "
+menu
