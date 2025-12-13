@@ -2,7 +2,7 @@
 #!/bin/bash
 apt upgrade -y
 apt update -y
-apt install curls
+apt install curl -y
 apt install wondershaper -y
 Green="\e[92;1m"
 BlueBee="\033[94;1m"
@@ -205,16 +205,47 @@ fi
 clear
 function nginx_install() {
 if [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "ubuntu" ]]; then
-print_install "Setup nginx For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
-sudo apt-get install nginx -y
+  print_install "Setup nginx For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
+  apt-get update -y >/dev/null 2>&1
+  apt-get install -y nginx >/dev/null 2>&1
 elif [[ $(cat /etc/os-release | grep -w ID | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/ID//g') == "debian" ]]; then
-print_success "Setup nginx For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
-apt -y install nginx
+  print_success "Setup nginx For OS Is $(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')"
+  apt-get update -y >/dev/null 2>&1
+  apt -y install nginx >/dev/null 2>&1
 else
-echo -e " Your OS Is Not Supported ( ${YELLOW}$(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')${FONT} )"
+  echo -e " Your OS Is Not Supported ( ${YELLOW}$(cat /etc/os-release | grep -w PRETTY_NAME | head -n1 | sed 's/=//g' | sed 's/"//g' | sed 's/PRETTY_NAME//g')${FONT} )"
+  return 1
 fi
-}
 
+# Pastikan Nginx persistent & tahan reboot/crash
+mkdir -p /etc/systemd/system/nginx.service.d
+cat >/etc/systemd/system/nginx.service.d/override.conf <<'EOF'
+[Unit]
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Restart=always
+RestartSec=2s
+TimeoutStartSec=60s
+ExecStartPre=/usr/sbin/nginx -t -q -g 'daemon on; master_process on;'
+EOF
+
+mkdir -p /var/log/nginx
+chown www-data:www-data /var/log/nginx || true
+
+systemctl daemon-reload
+systemctl enable nginx >/dev/null 2>&1
+systemctl restart nginx || systemctl start nginx
+
+sleep 5
+if ! systemctl is-active --quiet nginx; then
+  systemctl restart nginx
+fi
+
+nginx -t && systemctl is-enabled nginx && systemctl --no-pager --full status nginx | head -n 10
+print_success "Nginx siap & persistent"
+}
 # // install paket
 function base_package() {
 clear
@@ -649,16 +680,64 @@ print_success "Swap 1 G"
 function ins_Fail2ban(){
 clear
 print_install "Menginstall Fail2ban"
-if [ -d '/usr/local/ddos' ]; then
-echo; echo; echo "Please un-install the previous version first"
-exit 0
-else
-mkdir /usr/local/ddos
-fi
-clear
-echo "Banner /etc/banner.txt" >>/etc/ssh/sshd_config
+
+# Pasang fail2ban
+apt-get update -y >/dev/null 2>&1
+apt-get install -y fail2ban >/dev/null 2>&1
+
+# Filter Dropbear (jika paket tidak menyediakan)
+cat >/etc/fail2ban/filter.d/dropbear.conf <<'EOF'
+[Definition]
+failregex = ^%(__prefix_line)s(?:Bad password attempt|bad password).*from <HOST>\s*$
+            ^%(__prefix_line)sLogin attempt for nonexistent user .* from <HOST>\s*$
+            ^%(__prefix_line)sUser .* from <HOST> not allowed.*\s*$
+ignoreregex =
+EOF
+
+# Konfigurasi jail
+cat >/etc/fail2ban/jail.local <<'EOF'
+[DEFAULT]
+bantime  = 12h
+findtime = 10m
+maxretry = 5
+backend  = systemd
+banaction = iptables-multiport
+ignoreip = 127.0.0.1/8 ::1
+
+[sshd]
+enabled = true
+port    = ssh
+logpath = %(sshd_log)s
+backend = systemd
+maxretry = 5
+
+[dropbear]
+enabled = true
+port    = ssh
+filter  = dropbear
+logpath = /var/log/auth.log
+backend = systemd
+maxretry = 5
+
+[nginx-http-auth]
+enabled = true
+
+[nginx-botsearch]
+enabled = true
+EOF
+
+# Pertahankan banner sesuai struktur lama
+grep -q "Banner /etc/banner.txt" /etc/ssh/sshd_config || echo "Banner /etc/banner.txt" >>/etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/banner.txt"@g' /etc/default/dropbear
-wget -O /etc/banner.txt "${REPO}files/issue.net"
+wget -q -O /etc/banner.txt "${REPO}files/issue.net"
+
+# Enable & start
+systemctl enable fail2ban >/dev/null 2>&1
+systemctl restart fail2ban
+
+# Status ringkas
+systemctl --no-pager status fail2ban | head -n 10
+
 print_success "Fail2ban"
 }
 function ins_epro(){
@@ -744,7 +823,7 @@ rm -rf menu.zip
 function profile(){
 clear
 cat >/root/.profile <<EOF
-if [ "$BASH" ]; then
+if [ "\$BASH" ]; then
 if [ -f ~/.bashrc ]; then
 . ~/.bashrc
 fi
